@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <style>
+        .about-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .about-section p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            animation: fadeInUp 2s ease-out;
+        }
+        .about-section h3 {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            animation: fadeInUp 2.5s ease-out;
+        }
+        .about-section ul, .about-section ol {
+            list-style-type: none; /* Remove numbering and bullet points */
+            padding: 0;
+            animation: fadeInUp 3s ease-out;
+            text-align: left;
+            max-width: 800px;
+            width: 100%;
+        }
+        .about-section ul li, .about-section ol li {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            animation: fadeInUp 3.5s ease-out;
+            padding-left: 20px;
+            position: relative;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .bg-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+        .bg-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #4a90e2; /* Change background color on hover */
+            color: white; /* Change font color on hover */
+        }
+        .bg-card:hover h3, .bg-card:hover ul, .bg-card:hover li {
+            color: white; /* Ensure all text inside the card changes to white */
+        }
+        .text-primary {
+            color: #4a90e2;
+        }
+        .text-muted-foreground {
+            color: #666;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <div class="about-section">
+        <h2 class="text-xl font-semibold text-primary">Welcome to the Medicine Recommendation System</h2>
+        <p class="text-muted-foreground mb-4">Your Personalized Medicine Recommendation Assistant</p>
+        <p class="text-muted-foreground mb-6">
+            Looking for alternative medicines based on your prescribed treatments? Our system leverages advanced analysis to recommend personalized, safe, and effective alternatives.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-card p-4 rounded-lg shadow-md">
+                <h3 class="font-semibold text-primary">Smart Medicine Recommendations</h3>
+                <ul class="list-inside text-muted-foreground">
+                    <li>Find alternatives based on composition similarity</li>
+                    <li>Get top 5 recommended alternatives</li>
+                    <li>Compare medicine effectiveness</li>
+                </ul>
+            </div>
+            <div class="bg-card p-4 rounded-lg shadow-md">
+                <h3 class="font-semibold text-primary">Detailed Analysis</h3>
+                <ul class="list-inside text-muted-foreground">
+                    <li>View comprehensive medicine information</li>
+                    <li>Analyze review trends and patterns</li>
+                    <li>Compare side effects and uses</li>
+                </ul>
+            </div>
+        </div>
+        <h2 class="text-xl font-semibold text-primary">How to Use</h2>
+        <ol class="list-inside text-muted-foreground mb-4">
+            <li>Enter the name of your prescribed medicine in the search bar</li>
+            <li>Review the top 5 alternative recommendations</li>
+            <li>Click on any name to see detailed analysis</li>
+            <li>Compare alternatives based on side effects and effectiveness</li>
+        </ol>
+        <h2>About the System</h2>
+        <p>This system provides alternative medicine recommendations based on input medicines, their composition, and type. The aim is to assist users in finding suitable options.</p>
+        <h3>Use Cases:</h3>
+        <ul>
+            <li>Healthcare professionals recommending alternatives.</li>
+            <li>Patients seeking different medication options.</li>
+        </ul>
+    </div>
+{% endblock %}

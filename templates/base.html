@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Alternative Medicine Recommendation System{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    .header-title {
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      margin-left: -180px;
+    }
+
+    .header-call {
+      padding-right: 40px;
+    }
+
+    .header-call a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .header-call i:hover {
+      color: #ccc;
+      transform: scale(1.1);
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      padding-top: 70px; /* Adjust for fixed header */
+      padding-bottom: 80px; /* Adjust for fixed navbar */
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #4a90e2;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a:hover {
+      transform: scale(1.1);
+      color: #333;
+    }
+
+    .navbar a i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="{{ url_for('static', filename='assets/MC1.png') }}" alt="Logo">
+    </div>
+
+    <div class="header-title">
+      <h1>MediCare</h1>
+    </div>
+
+    <div class="header-call">
+      <a href="{{ url_for('call') }}" title="Call a Doctor">
+        <i class="fas fa-phone fa-2x"></i>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <div class="navbar">
+    <a href="/" class="icon-home"><i class="fa-solid fa-house" style="color: #4a90e2;"></i> Home</a>
+    <a href="/recommend" class="icon-recommend"><i class="fas fa-pills"></i> Recommend</a>
+    <a href="/about" class="icon-about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="/set_reminder" class="icon-reminder"><i class="fas fa-bell" style="color: #4a90e2;"></i> Reminder</a>
+    <a href="/map" class="icon-map"><i class="fas fa-map-marked-alt" style="color: #4a90e2;"></i> Map</a>
+    <a href="/feedback" class="icon-feedback"><i class="fa-regular fa-comments" style="color: #4a90e2;"></i> Feedback</a>
+  </div>
+
+  <!-- Optional Chatbot or Extra Scripts -->
+  <script src="https://cdn.botpress.cloud/webchat/v2.3/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/04/11/05/20250411055422-LITCSCW3.js"></script>
+</body>
+</html>

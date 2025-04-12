@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <style>
+        .welcome-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh; /* Slightly less than full height */
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            margin-top: -50px; /* Move up */
+        }
+        .welcome-section h2 {
+            font-size: 4rem; /* Larger font size */
+            color: #4a90e2;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .welcome-section p {
+            font-size: 1.5rem; /* Larger font size */
+            color: #333;
+            margin-bottom: 20px;
+            animation: fadeInUp 2s ease-out;
+        }
+        .dataset-overview {
+            margin-top: 20px; /* Adjust margin to position correctly below welcome section */
+            animation: fadeInUp 2.5s ease-out;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .dataset-overview .box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        }
+        .dataset-overview .box:hover {
+            background-color: #4a90e2;
+            transform: scale(1.05);
+            color: white;
+        }
+        .dataset-overview .box h3 {
+            font-size: 1.5rem;
+            color: #4a90e2;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        .dataset-overview .box p {
+            font-size: 1.2rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        .dataset-overview .box:hover h3,
+        .dataset-overview .box:hover p {
+            color: white;
+        }
+        .features-section {
+            margin-top: 50px;
+            text-align: center;
+            animation: fadeInUp 3s ease-out;
+        }
+        .features-section h3 {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .features-section .feature-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px; /* Reduced padding */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            margin-bottom: 30px; /* Space between feature boxes */
+            max-width: 1000px; /* Set maximum width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features-section .feature-box:hover {
+            background-color: #4a90e2;
+            transform: scale(1.05);
+            color: white;
+        }
+        .features-section .feature-box h4 {
+            font-size: 1.3rem; /* Reduced font size */
+            color: #4a90e2;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        .features-section .feature-box p {
+            font-size: 1rem; /* Reduced font size */
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        .features-section .feature-box:hover h4,
+        .features-section .feature-box:hover p {
+            color: white;
+        }
+        .cta-section {
+            margin-top: 50px;
+            text-align: center;
+            animation: fadeInUp 3.5s ease-out;
+        }
+        .cta-section h3 {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .cta-section a {
+            display: inline-block;
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-section a:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes countUp {
+            from {
+                counter-reset: count 0;
+            }
+            to {
+                counter-reset: count var(--target);
+            }
+        }
+        .count {
+            font-size: 2rem;
+            color: #4a90e2;
+            animation: countUp 2s ease-out forwards;
+        }
+    </style>
+
+    <div class="welcome-section">
+        <h2>Welcome!</h2>
+        <p>MediCare provides recommendations for alternative medicines based on input medicine and its composition.</p>
+        <p>Explore the dataset, analyze medicine information, and understand how recommendations are generated.</p>
+    </div>
+
+    <div class="dataset-overview">
+        <div class="box">
+            <h3>Total Number of Medicines</h3>
+            <p class="count" style="--target: {{ num_medicines }}">{{ num_medicines }}</p>
+        </div>
+        <div class="box">
+            <h3>Total Number of Companies</h3>
+            <p class="count" style="--target: {{ total_companies }}">{{ total_companies }}</p>
+        </div>
+        <div class="box">
+            <h3>Average Rating</h3>
+            <p class="count" style="--target: {{ avg_rating|round(2) }}">{{ avg_rating|round(2) }}</p>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <h3>Features</h3>
+        <div class="feature-box">
+            <h4>Smart Medicine Recommendations</h4>
+            <p>Find alternatives based on composition similarity.</p>
+        </div>
+        <div class="feature-box">
+            <h4>Detailed Analysis of Medicines</h4>
+            <p>View comprehensive medicine information.</p>
+        </div>
+        <div class="feature-box">
+            <h4>Review Trends and Patterns</h4>
+            <p>Analyze review trends and patterns.</p>
+        </div>
+        <div class="feature-box">
+            <h4>Comparison of Side Effects and Uses</h4>
+            <p>Compare side effects and uses.</p>
+        </div>
+        <div class="feature-box">
+            <h4>Personal Assistant Chatbot</h4>
+            <p>Our chatbot recommends Ayurveda medicines and assists with your queries.</p>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h3>Get Started</h3>
+        <p>Ready to find the best alternative medicines? Click the button below to get started!</p>
+        <a href="/recommend">Find Alternatives</a>
+    </div>
+{% endblock %}

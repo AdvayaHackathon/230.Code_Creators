@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Medicine Detail{% endblock %}
+
+{% block content %}
+    <style>
+        .medicine-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            margin-top: 100px; /* Increased top margin */
+        }
+        .medicine-card {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 1000px; /* Increased max-width */
+            width: 100%;
+            animation: fadeInUp 1.5s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .medicine-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .medicine-card img {
+            width: 250px; /* Increased image size */
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .medicine-card img:hover {
+            transform: scale(1.1);
+        }
+        .medicine-info {
+            flex: 1;
+            margin-left: 20px;
+            text-align: left;
+        }
+        .medicine-info h2 {
+            font-size: 2.5rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .medicine-info p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .review-section {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 1000px; /* Increased max-width */
+            text-align: left;
+        }
+        .review-section h3 {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .review-bar {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+            animation: fadeInUp 2s ease-out;
+        }
+        .review-bar div {
+            height: 100%;
+            transition: width 1s ease-out;
+        }
+        .excellent {
+            background-color: #4a90e2;
+        }
+        .average {
+            background-color: yellow;
+        }
+        .poor {
+            background-color: red;
+        }
+        .recommended-section {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1000px;
+            text-align: left;
+        }
+        .recommended-section h3 {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .recommended-medicines {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .recommended-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        }
+        .recommended-card:hover {
+            background-color: #4a90e2;
+            transform: scale(1.05);
+            color: white;
+        }
+        .recommended-card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .recommended-card h4 {
+            font-size: 1.2rem;
+            color: #4a90e2;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        .recommended-card p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        .recommended-card:hover h4,
+        .recommended-card:hover p {
+            color: white;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <div class="medicine-detail">
+        <div class="medicine-card">
+            <img src="{{ medicine['Image URL'] }}" alt="{{ medicine['Medicine Name'] }}">
+            <div class="medicine-info">
+                <h2>{{ medicine['Medicine Name'] }}</h2>
+                <p><strong>Company:</strong> {{ medicine['Company'] }}</p>
+                <p><strong>Composition:</strong> {{ medicine['Composition'] }}</p>
+                <p><strong>Uses:</strong> {{ medicine['Uses'] }}</p>
+                <p><strong>Side Effects:</strong> {{ medicine['Side_effects'] }}</p>
+            </div>
+        </div>
+        <div class="review-section">
+            <h3>Reviews</h3>
+            <p>Excellent: {{ medicine['Excellent Review %'] }}%</p>
+            <p>Average: {{ medicine['Average Review %'] }}%</p>
+            <p>Poor: {{ medicine['Poor Review %'] }}%</p>
+            <div class="review-bar">
+                <div class="excellent" style="width: {{ medicine['Excellent Review %'] }}%;"></div>
+                <div class="average" style="width: {{ medicine['Average Review %'] }}%;"></div>
+                <div class="poor" style="width: {{ medicine['Poor Review %'] }}%;"></div>
+            </div>
+        </div>
+        <div class="recommended-section">
+            <div class="recommended-medicines">
+                {% for recommendation in recommendations %}
+                    {% if recommendation.name != medicine['Medicine Name'] %}
+                        <div class="recommended-card">
+                            <a href="/medicine/{{ recommendation.name }}">
+                                <img src="{{ recommendation.image_url }}" alt="{{ recommendation.name }}">
+                            </a>
+                            <h4>{{ recommendation.name }}</h4>
+                            <p><strong>Company:</strong> {{ recommendation.company }}</p>
+                            <p><strong>Rating:</strong> {{ recommendation.rating }}</p>
+                        </div>
+                    {% else %}
+                        <p>Debug: Skipping {{ recommendation.name }} as it is the current medicine.</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

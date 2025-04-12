@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center;">Payment for {{ plan.title() }} Plan</h2>
+<p style="text-align: center;">Redirecting to payment gateway...</p>
+<!-- Add actual payment integration here -->
+{% endblock %}

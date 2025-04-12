@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback - MediCare{% endblock %}
+
+{% block content %}
+<div class="feedback-container">
+    <h2>User Feedback</h2>
+    {% if feedbacks %}
+        <div class="feedback-grid">
+            {% for fb in feedbacks %}
+                <div class="feedback-box">
+                    <div class="feedback-number">Feedback {{ loop.index }}</div>
+                    <div class="feedback-content">
+                        <p>{{ fb.message }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-feedback">No feedback submitted yet.</p>
+    {% endif %}
+</div>
+
+<form action="{{ url_for('feedback') }}" method="POST">
+    <textarea name="message" rows="4" placeholder="Your feedback..." required></textarea>
+    <button type="submit">Submit Feedback</button>
+</form>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    .feedback-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-container h2 {
+        color: #4a90e2;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 28px;
+    }
+
+    .feedback-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .feedback-box {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .feedback-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .feedback-number {
+        background: #4a90e2;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .feedback-content {
+        padding: 15px;
+    }
+
+    .feedback-content p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333;
+    }
+
+    .no-feedback {
+        text-align: center;
+        color: #777;
+        font-size: 18px;
+        margin-top: 30px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 40px auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: vertical;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #4a90e2;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #357abd;
+    }
+
+    @media (max-width: 1200px) {
+        .feedback-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .feedback-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .feedback-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .feedback-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

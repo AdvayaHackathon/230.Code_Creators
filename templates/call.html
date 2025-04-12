@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Call Doctor{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">Choose Your Subscription Plan</h2>
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+    <div style="border: 1px solid #4a90e2; padding: 20px; width: 300px; border-radius: 10px;">
+        <h3>Monthly Plan</h3>
+        <p>₹299 / month</p>
+        <ul>
+            <li>24/7 Doctor Access</li>
+            <li>Video Consultations</li>
+            <li>Unlimited Chat</li>
+        </ul>
+        <a href="{{ url_for('payment', plan='monthly') }}">
+            <button style="background-color: #4a90e2; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Subscribe</button>
+        </a>
+    </div>
+    <div style="border: 1px solid #4a90e2; padding: 20px; width: 300px; border-radius: 10px;">
+        <h3>Quarterly Plan</h3>
+        <p>₹799 / 3 months</p>
+        <ul>
+            <li>All Monthly Benefits</li>
+            <li>Free Medicine Delivery</li>
+            <li>Priority Support</li>
+        </ul>
+        <a href="{{ url_for('payment', plan='quarterly') }}">
+            <button style="background-color: #4a90e2; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Subscribe</button>
+        </a>
+    </div>
+    <div style="border: 1px solid #4a90e2; padding: 20px; width: 300px; border-radius: 10px;">
+        <h3>Yearly Plan</h3>
+        <p>₹2499 / year</p>
+        <ul>
+            <li>All Quarterly Benefits</li>
+            <li>Personal Health Assistant</li>
+            <li>Annual Health Check-up</li>
+        </ul>
+        <a href="{{ url_for('payment', plan='yearly') }}">
+            <button style="background-color: #4a90e2; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Subscribe</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
